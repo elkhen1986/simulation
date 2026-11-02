@@ -16,14 +16,6 @@
 :root[data-theme="light"]{color-scheme:light;--bg:#EDF2F8;--pan:#fff;--pan2:#F2F6FB;--ink:#14212F;--mut:#586A7E;--line:#D2DCE7;--cat:#D2492F;--an:#0C8A86;--e:#E09A00;--ok:#1B8A4B;--bad:#B3261E;--glow:#D9E5F3}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{background:radial-gradient(1100px 500px at 50% -10%,var(--glow),var(--bg));background-color:var(--bg);color:var(--ink);font:400 16px/1.6 Tajawal,system-ui,sans-serif;overflow:hidden}
-.wrap{max-width:1100px;height:100%;margin:auto;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 54px;display:flex;flex-direction:column;gap:10px}
-.hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
-h1{font-family:Cairo,Tajawal,sans-serif;font-size:clamp(18px,2.6vw,26px);margin:0;font-weight:800;background:linear-gradient(90deg,var(--ink),var(--e));-webkit-background-clip:text;background-clip:text;color:transparent}
-.tools{display:flex;gap:8px;align-items:center}
-.ib{display:inline-flex;align-items:center;gap:8px;min-width:42px;height:42px;padding:0 12px;justify-content:center;border-radius:99px;border:1px solid var(--line);background:var(--pan);color:var(--ink);font:inherit;transition:.2s}
-.ib:hover{border-color:var(--e);transform:translateY(-2px);box-shadow:0 6px 16px #0004;color:var(--e)}
-.sw{width:34px;height:20px;border-radius:99px;background:var(--line);position:relative;transition:.25s}.sw i{position:absolute;top:2px;inset-inline-start:2px;width:16px;height:16px;border-radius:50%;background:var(--mut);transition:.25s}
-[aria-checked="true"] .sw{background:var(--e)}[aria-checked="true"] .sw i{inset-inline-start:16px;background:#1a1200}
 nav{display:flex;align-items:center;justify-content:center;gap:0}
 nav button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--pan);color:var(--mut);font:inherit;font-weight:700;display:grid;place-items:center;transition:.2s}
 nav button:hover:not(:disabled){border-color:var(--e);color:var(--e);transform:scale(1.1)}
@@ -80,9 +72,6 @@ h2{font-size:18px;margin:0}h3{margin:0;font-size:16px}.mut{color:var(--mut);marg
 .vac.hot .vr{stroke:#fff;fill:#ffc93c66;transform:scale(1.6);animation:none}
 .flow{stroke:var(--e);stroke-width:3;stroke-dasharray:7 9;animation:dash 1.2s linear infinite;opacity:.9;stroke-linecap:round}
 .pop{animation:pop .55s cubic-bezier(.2,1.6,.4,1) both;transform-box:fill-box;transform-origin:center}@keyframes pop{from{transform:scale(.3);opacity:0}}
-.ft{font-family:Cairo,Tajawal,sans-serif;position:fixed;inset:auto 0 0 0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 24px calc(11px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,#0E1A2E,#0A1322);color:#DCE6F2;border-top:1px solid #20324B;font-size:13px;box-shadow:0 -10px 30px #0006;transform:translateY(115%);transition:transform .9s cubic-bezier(.2,1.2,.3,1)}
-body.ready .ft{transform:none}.ft .b{font-weight:700}
-@media(max-width:640px){.ft{flex-wrap:wrap;justify-content:center;text-align:center;font-size:11px;padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));gap:0 12px}.wrap{padding-bottom:64px}}
 .toast{position:fixed;inset-inline:0;bottom:80px;margin:auto;width:max-content;max-width:90%;background:var(--pan2);border:1px solid var(--e);padding:10px 18px;border-radius:12px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:120}.toast.show{opacity:1;transform:none}
 /* intro doors */
 #intro{position:fixed;inset:0;z-index:100;overflow:hidden;cursor:pointer}
@@ -119,16 +108,62 @@ body.ready .ft{transform:none}.ft .b{font-weight:700}
 .ptw{flex:1;min-height:0;display:flex;overflow-x:auto;direction:ltr}.ptb{display:grid;flex:1;min-width:640px;min-height:0}.ptb .t small{font-size:clamp(9px,1vw,12px)}.ptb .t .s{font-size:clamp(14px,2vw,28px)}.ptb .t{padding:3px}.ptb>*{min-width:0}.ptb .t.sel::after{width:14px;height:14px;font-size:9px;top:3px;inset-inline-end:3px}.pc{font-size:clamp(10px,1.15vw,15px)}
 @media(max-width:700px){.ptb .t .s{font-size:20px}.pc{font-size:13px}.pl{font-size:12px}}
 @media(max-width:560px){.ln{flex:0 0 10px}nav button{width:32px;height:32px}.ib span:not(.sw){display:none}.ib{padding:0 10px;gap:6px}.hd{gap:6px}.tools{gap:5px}h1{font-size:17px}}
-@media(max-width:560px){#dl span{display:none}#dl{padding:0}}
 </style>
-
+<style id="chrome">:root{--wmax:none}
+/* ===== unified chrome: header / footer / page shell (shared by all pages) ===== */
+html,body{height:100%}
+body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+.top{position:relative;z-index:60;flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:calc(8px + env(safe-area-inset-top,0px)) clamp(12px,2.2vw,28px) 8px;
+ background:linear-gradient(180deg,color-mix(in srgb,var(--pan) 86%,transparent),color-mix(in srgb,var(--pan) 58%,transparent));
+ border-bottom:1px solid color-mix(in srgb,var(--e) 16%,var(--line));backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);box-shadow:0 10px 30px -16px #000a}
+.top::after{content:"";position:absolute;inset:auto 0 -1px 0;height:1px;background:linear-gradient(90deg,transparent,var(--e),transparent);opacity:.5;pointer-events:none}
+.brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.logo{flex:none;width:48px;height:48px;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--e) 50%,transparent))}
+.bt{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.bn{font:800 clamp(18px,2.3vw,24px)/1.25 Cairo,Tajawal,sans-serif;background:linear-gradient(100deg,var(--e),var(--cat));-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.top .pg{margin:0;font:500 clamp(12px,1.3vw,14px)/1.45 Tajawal,system-ui,sans-serif;color:var(--mut);background:none;-webkit-text-fill-color:currentColor;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acts{display:flex;align-items:center;gap:8px;flex:none}
+.top .ib{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:40px;height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:color-mix(in srgb,var(--pan) 72%,transparent);color:var(--ink);font:500 14px/1 Tajawal,system-ui,sans-serif;cursor:pointer;transition:.2s}
+.top .ib:hover{border-color:var(--e);color:var(--e);transform:translateY(-1px);box-shadow:0 6px 16px -6px #0007}
+.sw{width:34px;height:20px;border-radius:99px;background:var(--line);position:relative;transition:.25s}
+.sw i{position:absolute;top:2px;inset-inline-start:2px;width:16px;height:16px;border-radius:50%;background:var(--mut);transition:.25s}
+[aria-checked="true"] .sw{background:var(--e)}[aria-checked="true"] .sw i{inset-inline-start:16px;background:#1a1200}
+body>.wrap{flex:1 1 auto;min-height:0;height:auto;width:100%;max-width:var(--wmax,none);margin:0 auto;padding:10px clamp(12px,1.6vw,20px) 12px;display:flex;flex-direction:column;gap:10px}
+.site-ft{position:relative;z-index:50;flex:none;display:flex;align-items:center;justify-content:space-between;gap:4px 20px;padding:9px clamp(12px,2.2vw,28px) calc(9px + env(safe-area-inset-bottom,0px));
+ font:600 13px/1.5 Cairo,Tajawal,system-ui,sans-serif;color:var(--mut);
+ background:linear-gradient(0deg,color-mix(in srgb,var(--pan) 88%,transparent),color-mix(in srgb,var(--pan) 58%,transparent));
+ border-top:1px solid color-mix(in srgb,var(--e) 16%,var(--line));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ transform:translateY(115%);transition:transform .9s cubic-bezier(.2,1.2,.3,1)}
+.site-ft::before{content:"";position:absolute;inset:-1px 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,var(--e),transparent);opacity:.45;pointer-events:none}
+body.ready .site-ft{transform:none}
+.site-ft .fi{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
+.site-ft .fi::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--e);box-shadow:0 0 10px var(--e)}
+.site-ft .fc{color:color-mix(in srgb,var(--e) 78%,var(--ink));text-align:center}
+@media(max-width:720px){
+ .top{gap:8px;padding-bottom:6px}.logo{width:40px;height:40px}.brand{gap:9px}
+ .top .ib>span:not(.sw){display:none}.top .ib{min-width:38px;height:38px;padding:0 10px}
+ .site-ft{flex-wrap:wrap;justify-content:center;text-align:center;font-size:11.5px;gap:0 14px;padding-top:6px}
+ .site-ft .fc{order:-1;flex:1 0 100%}
+}
+@media(max-width:380px){.bn{font-size:16px}.logo{width:36px;height:36px}}
+</style>
 </head><body>
-<div class="wrap"><header class="hd"><h1>استكشاف العناصر</h1>
-<div class="tools"><button id="thm" class="ib" role="switch" aria-checked="true" aria-label="الوضع الليلي" title="الوضع الليلي"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>الوضع الليلي</span><span class="sw"><i></i></span></button>
-<button id="dl" class="ib" aria-label="تحميل النموذج للعمل أوفلاين" title="تحميل النموذج للعمل أوفلاين"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>تحميل</span></button>
-<button id="fs" class="ib" aria-label="ملء الشاشة" title="ملء الشاشة"></button></div></header>
+<header class="top">
+<div class="brand">
+<svg class="logo" viewBox="-60 -60 120 120" aria-hidden="true"><defs><radialGradient id="nucH" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6c9"/><stop offset=".5" stop-color="#ffc93c"/><stop offset="1" stop-color="#c47a00"/></radialGradient></defs>
+<g fill="none" stroke="var(--e)" stroke-opacity=".6" stroke-width="2"><ellipse rx="52" ry="19"/><ellipse rx="52" ry="19" transform="rotate(60)"/><ellipse rx="52" ry="19" transform="rotate(120)"/></g>
+<circle r="10" fill="url(#nucH)"/>
+<g fill="var(--an)"><g><circle r="5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M-52,0 a52,19 0 1,0 104,0 a52,19 0 1,0 -104,0"/></circle></g>
+<g transform="rotate(60)"><circle r="5" fill="var(--cat)"><animateMotion dur="4.4s" repeatCount="indefinite" path="M-52,0 a52,19 0 1,0 104,0 a52,19 0 1,0 -104,0"/></circle></g>
+<g transform="rotate(120)"><circle r="5" fill="var(--e)"><animateMotion dur="5.2s" repeatCount="indefinite" path="M-52,0 a52,19 0 1,0 104,0 a52,19 0 1,0 -104,0"/></circle></g></g></svg>
+<div class="bt"><b class="bn">الروابط الكيميائية</b><h1 class="pg">استكشاف العناصر</h1></div>
+</div>
+<div class="acts"><a id="home" class="ib" href="index.html" aria-label="العودة للرئيسية" title="العودة للرئيسية" style="text-decoration:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-5H9v5H4a1 1 0 0 1-1-1V9.5z"/></svg><span>الرئيسية</span></a><button id="thm" class="ib" role="switch" aria-checked="true" aria-label="الوضع الليلي" title="الوضع الليلي"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>الوضع الليلي</span><span class="sw"><i></i></span></button>
+<button id="dl" class="ib" aria-label="تحميل النموذج للعمل أوفلاين" title="تحميل النموذج للعمل أوفلاين"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>تحميل</span></button><button id="fs" class="ib" aria-label="ملء الشاشة" title="ملء الشاشة"></button></div>
+</header>
+<div class="wrap">
 <nav id="nav"></nav><div id="app"></div></div>
-<footer class="ft"><span class="b">إعداد أستاذ عبدالحميد الخن</span><span>✨ تحت رعاية موجه الكيمياء أ/ مشاعل المطيري ✨</span><span class="b">مدرسة محمد عبدالله المهيني</span></footer>
+<footer class="site-ft"><span class="fi">إعداد أستاذ عبدالحميد الخن</span><span class="fc">✨ تحت رعاية موجه الكيمياء أ/ مشاعل المطيري ✨</span><span class="fi">مدرسة محمد عبدالله المهيني</span></footer>
 <div id="toast" class="toast" role="status"></div><div id="cel"></div><canvas id="cv"></canvas>
 <div id="intro"><div class="door l"></div><div class="door r"></div><div class="cr"><div class="c1">إعداد أستاذ عبدالحميد الخن</div><hr><div class="c2">✨ تحت رعاية موجه الكيمياء أ/ مشاعل المطيري ✨</div><hr><div class="c3">مدرسة محمد عبدالله المهيني</div></div></div>
 <script>
@@ -152,15 +187,12 @@ document.addEventListener('fullscreenchange',fsIcon);document.addEventListener('
 const intro=$('intro');
 function openDoors(){if(intro.classList.contains('open'))return;intro.classList.add('open');setTimeout(()=>document.body.classList.add('ready'),800);setTimeout(()=>intro.remove(),2100)}
 if(RM){intro.remove();document.body.classList.add('ready')}else{setTimeout(openDoors,4400);intro.onclick=openDoors}
-
-
 function bohr(e,sh){let s='';for(let k=0;k<4;k++){const r=34+25*k;s+=`<circle cx="130" cy="130" r="${r}" fill="none" stroke="var(--line)" stroke-width="1.5" ${sh[k]?'':'stroke-dasharray="3 5"'}/>`;
  let g='';for(let j=0;j<sh[k];j++){const a=-Math.PI/2+j*2*Math.PI/sh[k]+k*.4;g+=`<circle class="el" cx="${130+r*Math.cos(a)}" cy="${130+r*Math.sin(a)}" r="5" fill="var(--e)"/>`}s+=`<g class="orb" style="animation-duration:${16+k*8}s;animation-direction:${k%2?'reverse':'normal'}">${g}</g>`}
  return `<svg viewBox="0 0 260 260" class="bs" role="img" aria-label="نموذج بور">${s}<circle cx="130" cy="130" r="24" fill="${COL[e.k]}"/><text x="130" y="135" text-anchor="middle" font-size="14" font-weight="700" fill="#111" font-family="inherit">+${e.z}</text></svg>`}
 function lewis(e,d,edit){let s=`<text x="100" y="114" text-anchor="middle" font-size="34" font-weight="700" fill="${COL[e.k]}" font-family="inherit">${e.k}</text>`;
  SP.forEach((p,i)=>{s+=`<g class="${edit?'d':''}" ${edit?`data-d="${i}" role="button" aria-label="موضع ${i+1}"`:''}><circle cx="${p[0]}" cy="${p[1]}" r="15" fill="transparent"/>${d[i]?`<circle class="el" cx="${p[0]}" cy="${p[1]}" r="7" fill="var(--e)"/>`:`<circle class="hole" cx="${p[0]}" cy="${p[1]}" r="7" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="3 3"/>`}</g>`});
  return `<svg viewBox="0 0 200 200" class="ls">${s}</svg>`}
-
 const cv=$('cv'),cx=cv.getContext('2d');let P=[],raf=0;
 const CC=['#FFC93C','#FF7A5C','#3CC9C3','#B07CFF','#4BD184','#5AA9FF','#FF6B9A'];
 function sizeCv(){cv.width=innerWidth;cv.height=innerHeight}sizeCv();addEventListener('resize',sizeCv);
@@ -168,12 +200,9 @@ function confetti(n,x,y,ang=-Math.PI/2,spread=Math.PI*.9,pow=13){if(RM)return;fo
 function tick(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.l>0&&p.y<cv.height+30);
  P.forEach(p=>{p.vy+=.28;p.vx*=.99;p.vy*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=Math.min(1,p.l/40);cx.fillStyle=p.c;if(p.r2){cx.beginPath();cx.arc(0,0,p.h/1.2,0,7);cx.fill()}else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});
  raf=P.length?requestAnimationFrame(tick):0}
-
 function fit(){const c=$('app').querySelector('.card');if(!c)return;let z=1,n=0;c.style.zoom=1;
  const over=()=>c.scrollHeight>c.clientHeight+1||[...c.querySelectorAll('.stg,.q4,.atoms,.tiles')].some(x=>x.scrollHeight>x.clientHeight+2||x.scrollWidth>x.clientWidth+2);
  while(over()&&z>.5&&n++<40){z=+(z-.04).toFixed(2);c.style.zoom=z}}
-
-
 /* ===== استكشاف العناصر ===== */
 const cg=(n,s)=>`<span class="cg">${n>1?n:''}${s}</span>`,sup=s=>String(s).replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]),sb=n=>String(n).replace(/\d/g,d=>'₀₁₂₃₄₅₆₇₈₉'[d]),cl=(x,a,b)=>Math.min(b,Math.max(a,x));
 const COL={Li:'#ff6b9a',Be:'#ffb020',B:'#b07cff',N:'#5b86ff',O:'#ff4d8d',F:'#6fdcff',Na:'#ffd23f',Mg:'#2fd6a0',Cl:'#9be84f',K:'#d98cff',Ca:'#ff7a45',P:'#ff9f43',S:'#ffe14d'},SP=[[85,48],[115,48],[152,85],[152,115],[115,152],[85,152],[48,115],[48,85]];
