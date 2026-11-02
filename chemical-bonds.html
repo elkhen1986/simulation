@@ -109,17 +109,23 @@ body.ready .ft{transform:none}.ft .b{font-weight:700}
 .stg .ch button.lt{min-width:86px}
 .atoms{display:grid;gap:12px;flex:1;min-height:0}@media(max-width:700px){.atoms{grid-template-columns:1fr!important}}
 .in,.t,.pr .dn,.t.sel::after,.pop,.orb{animation:none!important}.t:hover,.t.sel{transform:none!important}
+@media(max-width:560px){#dl span{display:none}#dl{padding:0}}
 </style>
 
 </head><body>
 <div class="wrap"><header class="hd"><h1>نشاط تكوين الروابط الكيميائية</h1>
 <div class="tools"><button id="thm" class="ib" role="switch" aria-checked="true" aria-label="الوضع الليلي" title="الوضع الليلي"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>الوضع الليلي</span><span class="sw"><i></i></span></button>
+<button id="dl" class="ib" aria-label="تحميل النموذج للعمل أوفلاين" title="تحميل النموذج للعمل أوفلاين"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>تحميل</span></button>
 <button id="fs" class="ib" aria-label="ملء الشاشة" title="ملء الشاشة"></button></div></header>
 <nav id="nav"></nav><div id="app"></div></div>
 <footer class="ft"><span class="b">إعداد أستاذ عبدالحميد الخن</span><span>✨ تحت رعاية موجه الكيمياء أ/ مشاعل المطيري ✨</span><span class="b">مدرسة محمد عبدالله المهيني</span></footer>
 <div id="toast" class="toast" role="status"></div><div id="cel"></div><canvas id="cv"></canvas>
 <div id="intro"><div class="door l"></div><div class="door r"></div><div class="cr"><div class="c1">إعداد أستاذ عبدالحميد الخن</div><hr><div class="c2">✨ تحت رعاية موجه الكيمياء أ/ مشاعل المطيري ✨</div><hr><div class="c3">مدرسة محمد عبدالله المهيني</div></div></div>
-<script>const $=id=>document.getElementById(id),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+<script>
+/* تحميل النموذج كملف مستقل يعمل أوفلاين (النسخة الأصلية قبل أي تشغيل) */
+const __SRC='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+(function(){const b=document.getElementById('dl');if(!b)return;b.onclick=()=>{try{const u=URL.createObjectURL(new Blob([__SRC],{type:'text/html;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='الروابط_الكيميائية.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),8000);if(typeof toast=='function')toast('تم تحميل النموذج، ويعمل أوفلاين بالكامل')}catch(e){if(typeof toast=='function')toast('تعذّر التحميل، جرّب متصفحًا آخر')}}})();
+const $=id=>document.getElementById(id),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const IC={next:'M19 12H5M12 19l-7-7 7-7',back:'M5 12h14M12 5l7 7-7 7',check:'M20 6 9 17l-5-5',erase:'M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14',reset:'M3 12a9 9 0 1 0 3-6.7M3 4v5h5',home:'M3 11 12 3l9 8M5 10v10h14V10',close:'M6 6l12 12M18 6 6 18',expand:'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5',compress:'M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5',trophy:'M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3'};
 const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IC[n]}"/></svg>`;
 const ENG={};window.ACT=null;
@@ -553,7 +559,7 @@ function MC(e){const t=e.target.closest('button');if(!t)return;const d=t.dataset
   else{M.mk='*';M.c='bad';M.msg=r=='i'?'أحد العنصرين فلز والآخر لافلز، فيفقد الفلز ويكتسب اللافلز وتتكوّن رابطة أيونية'+(x<1.7?'، والفرق أقل من 1.7 فيظهر طابع تساهمي ملحوظ.':'.'):b=='i'?'لافلزان لا ينتقل بينهما إلكترون كاملًا بل يتشاركان، فالرابطة تساهمية'+(x>=1.7?' (الفرق ≥ 1.7 لكنها قطبية جدًا).':'.'):x<.4?'الفرق أقل من 0.4: الإلكترونات موزعة تقريبًا بالتساوي، فالرابطة غير قطبية.':'الفرق 0.4 أو أكثر: إحدى الذرتين أشد جذبًا للإلكترونات، فالرابطة قطبية.'}return renderM()}}
 addEventListener('resize',fit);
 renderM();
-</script><script>
+
 /* زر الرئيسية في كل الصفحات */
 (function(){
 const _S=SET;SET=function(h){_S(h);const b=document.querySelector('#app .bar');if(b&&!b.querySelector('[data-hm]')){const x=document.createElement('button');x.className='btn g';x.dataset.hm=1;x.title='الرئيسية';x.setAttribute('aria-label','الرئيسية');x.innerHTML=ic('home',22);b.insertBefore(x,b.children[1]||null)}fit()};
